@@ -96,4 +96,41 @@ WHERE
     AND a.City LIKE 'Pa%'
 
 -- **********************************************************************************************
--- 8) Kýrmýzý veya Mavi renkli tüm ürünlerin ismini
+-- 8) Kýrmýzý veya Mavi renkli tüm ürünlerin isim, renk ve liste fiyatýný,
+-- liste fiyatýna göre sýralayan sql sorgusunu yazýnýz
+
+SELECT 
+      p.Name as isim,
+	  p.Color as renk,
+	  p.ListPrice as listefiyati
+FROM Production.Product as p
+WHERE p.Color IN ('Red','Blue')
+order by p.ListPrice  -- or    order by p.ListPrice ASC
+
+-- **********************************************************************************************
+-- 9) ID'si 43659 ve 43664  olan sipariþlerin toplamýný, ortalamasý ,minimum 
+-- ve maksimum sipariþ miktarýný ve sayýsýný bulan sql sorgusunu yazýnýz
+
+SELECT
+    SUM(ot.OrderQty) AS ToplamSiparis,
+    AVG(ot.OrderQty) AS OrtalamaSiparis,
+    MIN(ot.OrderQty) AS MinimumSiparis,
+    MAX(ot.OrderQty) AS MaximumSiparis,
+    COUNT(ot.OrderQty) AS SiparisSayisi
+FROM
+    Sales.SalesOrderDetail AS ot
+WHERE
+    ot.SalesOrderID IN (43659, 43664)
+
+-- **********************************************************************************************
+-- 10) Soyadý 'L' harfi ile baþlayan kiþilerin ID (BusinessEntityID),ad
+-- soyad ve telefon numarasýný listeleyen sql sorgusu yazýnýz.
+SELECT P.BusinessEntityID as ID,
+       P.FirstName as ad,
+	   P.LastName as soyad,
+	   Pn.PhoneNumber as telefonnumarasý
+       FROM Person.Person P inner join Person.PersonPhone  Pn on P.BusinessEntityID=Pn.BusinessEntityID
+	   WHERE P.LastName LIKE 'L%' 
+
+-- **********************************************************************************************
+
