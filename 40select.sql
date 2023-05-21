@@ -133,4 +133,50 @@ SELECT P.BusinessEntityID as ID,
 	   WHERE P.LastName LIKE 'L%' 
 
 -- **********************************************************************************************
+-- 11)'Satýn Alma Müdürü'  olarak atanan kiþilerin ID (BusinessEntityID),isim ve soyadýný;
+-- soyada göre artan sýrada listeleyen sql sorgusu yazýnýz
 
+
+SELECT 
+    p.BusinessEntityID as ID,
+    p.FirstName as ilkad,
+	p.LastName as soyad
+FROM 
+    HumanResources.Employee AS e
+JOIN 
+    Person.Person AS p ON e.BusinessEntityID=p.BusinessEntityID
+WHERE 
+    e.JobTitle LIKE 'Purchasing Manager%'
+ORDER BY p.LastName 
+
+-- **********************************************************************************************
+-- 12) Ürün kalitesi 500 den fazla olan ve 'A' veya 'C' veya 'H' rafýnda bulunan her bir 
+-- ürünün ID'sýný ve toplam miktarýný,ürün  ID'sýne göre artan sýrada listeleyen sql sorgusunu yazýnýz
+SELECT
+    p.ProductID AS ID,
+    SUM(s.OrderQty) AS ToplamMiktar
+FROM
+    Production.Product AS p
+    INNER JOIN Sales.SalesOrderDetail AS s ON p.ProductID=s.ProductID
+WHERE
+    p.ProductLine IN ('A', 'C', 'H')
+    AND p.StandardCost > 500
+GROUP BY
+    p.ProductID
+ORDER BY
+    p.ProductID ASC
+
+-- **********************************************************************************************
+--13)Her þehirde çalýþan sayýsýný almak için sql sorgusu yazýnýz ,sonucu þehre göre artan düzende sýralayýn
+--(iki sütun:Þehir ve çalýþan sayýsý)
+select 
+       a.City as þehir,
+	   count(e.BusinessEntityID) as çalýþan
+from HumanResources.Employee as e 
+     inner join Person.Person as p on e.BusinessEntityID=p.BusinessEntityID
+	 inner join Person.BusinessEntity as b on p.BusinessEntityID=b.BusinessEntityID
+     inner join Person.BusinessEntityAddress as ba on b.BusinessEntityID=ba.BusinessEntityID
+     inner join Person.Address as a on a.AddressID=ba.AddressID
+group by a.City
+order by a.City ASC
+-- **********************************************************************************************
