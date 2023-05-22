@@ -180,3 +180,39 @@ from HumanResources.Employee as e
 group by a.City
 order by a.City ASC
 -- **********************************************************************************************
+-- 14)Ürünleri satýþ adet sayýsýna göre çoktan aza doðru sýralayýnýz.(Üç sütun :ProductID,ProductName,adet)
+select
+     p.ProductID as Id,
+	 p.Name as name,
+	 sum(s.OrderQty) as adet
+from  Production.Product as p 
+      inner join Sales.SalesOrderDetail as s on p.ProductID=s.ProductID
+group by p.ProductID,p.Name
+order by adet desc
+
+-- **********************************************************************************************
+-- 15) Ülkelere göre toplam sipariþ tutarlarýný çoktan aza doðru getiriniz
+select
+      c.Name as Ülke,
+	  Sum(s.TotalDue) as miktar
+from Sales.SalesOrderHeader as s
+      inner join Sales.SalesTerritory as st on s.TerritoryID=st.TerritoryID
+	  inner join  Person.CountryRegion as c on st.CountryRegionCode=c.CountryRegionCode
+group by  c.Name
+order by  miktar desc
+-- **********************************************************************************************
+-- 16) Her bir müþterinin toplam adet olarak kaç ürün aldýðýný yazdýran bir sorgu yazýnýz ,
+-- çoktan aza doðru sýralayýnýz
+select  
+    SOH.CustomerID,
+    p.FirstName,
+    p.LastName,
+    COUNT(SOD.ProductID) AS TotalQuantity
+from Sales.SalesOrderHeader AS SOH
+    INNER JOIN Sales.SalesOrderDetail AS SOD ON SOH.SalesOrderID = SOD.SalesOrderID
+    INNER JOIN Person.Person AS P ON SOH.CustomerID = P.BusinessEntityID
+group by  SOH.CustomerID, p.FirstName,p.LastName
+ORDER BY
+    TotalQuantity DESC
+
+-- **********************************************************************************************
