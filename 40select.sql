@@ -216,3 +216,43 @@ ORDER BY
     TotalQuantity DESC
 
 -- **********************************************************************************************
+-- 17)SalesPersonID, salesyear, totalsales, salesquotayear, salesquota ve amt_above_or_below_quota sütunlarýný bulmak 
+-- için SQL'de bir sorgu yazýn.Sonuç kümesini ,SalesPersonID ve SalesYear sütunlarýnda artan düzende sýralayýn
+
+select sp.BusinessEntityID as personýd,
+       YEAR(soh.DueDate) as salesyear,
+       SUM(soh.TotalDue) as totalsales,
+	   SUM(sp.SalesQuota) as quata
+from Sales.SalesOrderHeader as soh
+           inner join Sales.SalesPerson as sp on sp.TerritoryID=soh.TerritoryID
+group by sp.BusinessEntityID ,YEAR(soh.DueDate)
+
+-- **********************************************************************************************
+--18) SalesOrderID i almak için SQL'de bir sorgu yazýn.Belirli TerritoryID için herhangi bir sipariþ yoksa 
+-- NULL döndürülür .TerritoryID,CountryRegionCode, ve SalesOrderID döndürür. Sonuçlar SalesOrderID ye göre sýralanýr,
+-- böylece NULL 'lar en üstte görünür.
+
+select 
+     st.TerritoryID as TerritoryID,
+	 st.CountryRegionCode as ülke,
+	 CASE 
+        WHEN EXISTS (
+            SELECT 1
+            FROM Sales.SalesOrderHeader as soh inner join Sales.SalesTerritory as st on soh.TerritoryID=st.TerritoryID
+            WHERE st.SalesYTD != 0 AND st.SalesLastYear !=0
+        ) THEN SalesOrderID
+        ELSE NULL
+    END AS SalesOrderID
+from Sales.SalesOrderHeader as soh 
+      inner join Sales.SalesTerritory as st on soh.TerritoryID=st.TerritoryID
+order by SalesOrderID
+-- **********************************************************************************************
+-- 19) Orta adýn NULL ' dan farklý olduðu satýrlarý bulmak için SQL'de bir sorgu yazýn.Ýþletme varlýk kimliði
+-- kiþi türü , ad , ikinci ad, ve soyadýný döndürün.Sonuç kümesini ad üzerinden artan düzende sýralayýn
+SELECT BusinessEntityID, PersonType, FirstName, MiddleName, LastName
+FROM Person.Person
+WHERE MiddleName IS NOT NULL
+ORDER BY FirstName ASC
+-- **********************************************************************************************
+
+
