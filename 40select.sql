@@ -1,4 +1,4 @@
--- 1) Aylara göre sipariþ sayýlarýný ,toplam sipariþ tutuarýný ,toplam adet olarak  
+-- 40) Aylara göre sipariþ sayýlarýný ,toplam sipariþ tutuarýný ,toplam adet olarak  
 -- satýlan ürün sayýsýný getiren sorgu
 select MONTH(sh.OrderDate) as aylar,
        COUNT(sh.SalesOrderID) as sipaissayisi,
@@ -8,7 +8,7 @@ from Sales.SalesOrderHeader as sh inner join Sales.SalesOrderDetail sd on sh.Sal
 group by MONTH(sh.OrderDate)
 order by aylar;
 -- ******************************************************************************
---2) Herbir müþterinin kategorilere göre yaptýklarý alýþveriþ tutarlarýný getiriniz.
+--39) Herbir müþterinin kategorilere göre yaptýklarý alýþveriþ tutarlarýný getiriniz.
 -- (Üç sütun: Müþteri ID, Kategori, toplam tutar) 
 select   C.CustomerID,
 		 PC.Name AS Kategori,
@@ -22,7 +22,7 @@ GROUP BY C.CustomerID,
          PC.Name
 ORDER BY C.CustomerID;
 -- *****************************************************************************************
--- 3) Çalýþanlarýn yaptýklarý sipariþlerin toplam tutarýný azdan çoða doðru sýralayýnýz 
+-- 38) Çalýþanlarýn yaptýklarý sipariþlerin toplam tutarýný azdan çoða doðru sýralayýnýz 
 SELECT 
     P.FirstName + ' ' + P.LastName AS CalisanAdi,
     SUM(SOH.TotalDue) AS ToplamTutar
@@ -35,7 +35,7 @@ GROUP BY
 ORDER BY 
     ToplamTutar ASC;
 -- ******************************************************************************************
--- 4)Ürün adýný ve satýþ sipariþi kimliðini listeleyen sql sorgusunu yazýnýz.
+-- 37)Ürün adýný ve satýþ sipariþi kimliðini listeleyen sql sorgusunu yazýnýz.
 --(hem sýralý hem de sýrasýz  ürünler listeye dahil edilir) 
 SELECT 
     p.Name AS UrunAdi,
@@ -48,7 +48,7 @@ ORDER BY
     p.Name ASC;
 
 -- **********************************************************************************************
--- 5) Ýþ unvanlarý 'Satýþ' ile baþlayan tüm çalýþanlarýn ilk ad ,
+-- 36) Ýþ unvanlarý 'Satýþ' ile baþlayan tüm çalýþanlarýn ilk ad ,
 --ikinci ad ,soyadý ve iþ unvanýný listeleyen sql sorgusunu yazýnýz
 SELECT 
     p.FirstName as ilkad,
@@ -63,7 +63,7 @@ WHERE
     e.JobTitle LIKE 'Sales%'
 
 -- **********************************************************************************************
--- 6) Avustralya'da bulunan kiþilerin isim(FirstName) sütunundaki karakter 
+-- 35) Avustralya'da bulunan kiþilerin isim(FirstName) sütunundaki karakter 
 -- sayýsýný ,isim ve soyadlarýný listeleyen sql sorgusunu yazýnýz.
 
 select 
@@ -79,7 +79,7 @@ from Person.Person as p
 WHERE cr.Name LIKE 'Australia%'
 
 -- **********************************************************************************************
--- 7) ABD dýþýnda ve adý "Pa" ile baþlayan þehirlerin Adres1,Adres2,postakodu ve ülke bölge 
+-- 34) ABD dýþýnda ve adý "Pa" ile baþlayan þehirlerin Adres1,Adres2,postakodu ve ülke bölge 
 -- kodlarýný listleyen sql sorgusunu yazýnýz
 
 SELECT 
@@ -96,7 +96,7 @@ WHERE
     AND a.City LIKE 'Pa%'
 
 -- **********************************************************************************************
--- 8) Kýrmýzý veya Mavi renkli tüm ürünlerin isim, renk ve liste fiyatýný,
+-- 33) Kýrmýzý veya Mavi renkli tüm ürünlerin isim, renk ve liste fiyatýný,
 -- liste fiyatýna göre sýralayan sql sorgusunu yazýnýz
 
 SELECT 
@@ -108,7 +108,7 @@ WHERE p.Color IN ('Red','Blue')
 order by p.ListPrice  -- or    order by p.ListPrice ASC
 
 -- **********************************************************************************************
--- 9) ID'si 43659 ve 43664  olan sipariþlerin toplamýný, ortalamasý ,minimum 
+-- 32) ID'si 43659 ve 43664  olan sipariþlerin toplamýný, ortalamasý ,minimum 
 -- ve maksimum sipariþ miktarýný ve sayýsýný bulan sql sorgusunu yazýnýz
 
 SELECT
@@ -123,7 +123,7 @@ WHERE
     ot.SalesOrderID IN (43659, 43664)
 
 -- **********************************************************************************************
--- 10) Soyadý 'L' harfi ile baþlayan kiþilerin ID (BusinessEntityID),ad
+-- 31) Soyadý 'L' harfi ile baþlayan kiþilerin ID (BusinessEntityID),ad
 -- soyad ve telefon numarasýný listeleyen sql sorgusu yazýnýz.
 SELECT P.BusinessEntityID as ID,
        P.FirstName as ad,
@@ -133,7 +133,7 @@ SELECT P.BusinessEntityID as ID,
 	   WHERE P.LastName LIKE 'L%' 
 
 -- **********************************************************************************************
--- 11)'Satýn Alma Müdürü'  olarak atanan kiþilerin ID (BusinessEntityID),isim ve soyadýný;
+-- 30)'Satýn Alma Müdürü'  olarak atanan kiþilerin ID (BusinessEntityID),isim ve soyadýný;
 -- soyada göre artan sýrada listeleyen sql sorgusu yazýnýz
 
 
@@ -150,7 +150,7 @@ WHERE
 ORDER BY p.LastName 
 
 -- **********************************************************************************************
--- 12) Ürün kalitesi 500 den fazla olan ve 'A' veya 'C' veya 'H' rafýnda bulunan her bir 
+-- 29) Ürün kalitesi 500 den fazla olan ve 'A' veya 'C' veya 'H' rafýnda bulunan her bir 
 -- ürünün ID'sýný ve toplam miktarýný,ürün  ID'sýne göre artan sýrada listeleyen sql sorgusunu yazýnýz
 SELECT
     p.ProductID AS ID,
@@ -167,7 +167,7 @@ ORDER BY
     p.ProductID ASC
 
 -- **********************************************************************************************
---13)Her þehirde çalýþan sayýsýný almak için sql sorgusu yazýnýz ,sonucu þehre göre artan düzende sýralayýn
+--28)Her þehirde çalýþan sayýsýný almak için sql sorgusu yazýnýz ,sonucu þehre göre artan düzende sýralayýn
 --(iki sütun:Þehir ve çalýþan sayýsý)
 select 
        a.City as þehir,
@@ -180,7 +180,7 @@ from HumanResources.Employee as e
 group by a.City
 order by a.City ASC
 -- **********************************************************************************************
--- 14)Ürünleri satýþ adet sayýsýna göre çoktan aza doðru sýralayýnýz.(Üç sütun :ProductID,ProductName,adet)
+-- 27)Ürünleri satýþ adet sayýsýna göre çoktan aza doðru sýralayýnýz.(Üç sütun :ProductID,ProductName,adet)
 select
      p.ProductID as Id,
 	 p.Name as name,
@@ -191,7 +191,7 @@ group by p.ProductID,p.Name
 order by adet desc
 
 -- **********************************************************************************************
--- 15) Ülkelere göre toplam sipariþ tutarlarýný çoktan aza doðru getiriniz
+-- 26) Ülkelere göre toplam sipariþ tutarlarýný çoktan aza doðru getiriniz
 select
       c.Name as Ülke,
 	  Sum(s.TotalDue) as miktar
@@ -201,7 +201,7 @@ from Sales.SalesOrderHeader as s
 group by  c.Name
 order by  miktar desc
 -- **********************************************************************************************
--- 16) Her bir müþterinin toplam adet olarak kaç ürün aldýðýný yazdýran bir sorgu yazýnýz ,
+-- 25) Her bir müþterinin toplam adet olarak kaç ürün aldýðýný yazdýran bir sorgu yazýnýz ,
 -- çoktan aza doðru sýralayýnýz
 select  
     SOH.CustomerID,
@@ -216,7 +216,7 @@ ORDER BY
     TotalQuantity DESC
 
 -- **********************************************************************************************
--- 17)SalesPersonID, salesyear, totalsales, salesquotayear, salesquota ve amt_above_or_below_quota sütunlarýný bulmak 
+-- 24)SalesPersonID, salesyear, totalsales, salesquotayear, salesquota ve amt_above_or_below_quota sütunlarýný bulmak 
 -- için SQL'de bir sorgu yazýn.Sonuç kümesini ,SalesPersonID ve SalesYear sütunlarýnda artan düzende sýralayýn
 
 select sp.BusinessEntityID as personýd,
@@ -228,7 +228,7 @@ from Sales.SalesOrderHeader as soh
 group by sp.BusinessEntityID ,YEAR(soh.DueDate)
 
 -- **********************************************************************************************
---18) SalesOrderID i almak için SQL'de bir sorgu yazýn.Belirli TerritoryID için herhangi bir sipariþ yoksa 
+--23) SalesOrderID i almak için SQL'de bir sorgu yazýn.Belirli TerritoryID için herhangi bir sipariþ yoksa 
 -- NULL döndürülür .TerritoryID,CountryRegionCode, ve SalesOrderID döndürür. Sonuçlar SalesOrderID ye göre sýralanýr,
 -- böylece NULL 'lar en üstte görünür.
 
@@ -247,12 +247,64 @@ from Sales.SalesOrderHeader as soh
       inner join Sales.SalesTerritory as st on soh.TerritoryID=st.TerritoryID
 order by SalesOrderID
 -- **********************************************************************************************
--- 19) Orta adýn NULL ' dan farklý olduðu satýrlarý bulmak için SQL'de bir sorgu yazýn.Ýþletme varlýk kimliði
+-- 22) Orta adýn NULL ' dan farklý olduðu satýrlarý bulmak için SQL'de bir sorgu yazýn.Ýþletme varlýk kimliði
 -- kiþi türü , ad , ikinci ad, ve soyadýný döndürün.Sonuç kümesini ad üzerinden artan düzende sýralayýn
 SELECT BusinessEntityID, PersonType, FirstName, MiddleName, LastName
 FROM Person.Person
 WHERE MiddleName IS NOT NULL
 ORDER BY FirstName ASC
 -- **********************************************************************************************
+-- 21) Belirli bir çalýþanýn önceki üç aylýk dönemlere göre satýþ kotalarýndaki farklý döndürmek için SQL 'de
+-- bir sorgu yazýn.Sonuçlarý ,iþletme kimliði 277 ve kota tarihi 2012 veya 2013 olan satýþ görevlisine göre
+-- sýralyýn.
+SELECT s.BusinessEntityID, 
+       s.QuotaDate,
+       s.SalesQuota - lag(s.SalesQuota) OVER (PARTITION BY s.BusinessEntityID ORDER BY s.QuotaDate) AS SalesQuotaDifference
+FROM Sales.SalesPersonQuotaHistory s
+WHERE s.BusinessEntityID = 277
+  AND YEAR(s.QuotaDate) IN (2012, 2013)
+ORDER BY s.QuotaDate
+-- **********************************************************************************************
+-- 20) Alan kodu 415 olan tüm telefon numaralarýný bulmak için SQL 'de  bir sorgu yazýn.Adý,Soyadýný ve
+-- telefon numarasýný döndürür.Sonuç kümesini soyadýna göre artan düzende sýralyýn.
+select
+      p.FirstName as ad,
+	  p.LastName as soyad,
+	  pp.PhoneNumber as telefon
+from Person.Person as p 
+     inner join Person.PersonPhone as pp on p.BusinessEntityID=pp.BusinessEntityID
+where  pp.PhoneNumber LIKE '415%'
+-- **********************************************************************************************
+-- 19)iki sorgunun birleþiminden oluþan bir sorgu yazýn.1.sorgudan 2. sorguda da bulunmayan herhangi bir iþletme
+-- kimliði döndürün.Sonuç kümesini businessentityID 'de artan düzende sýralayýn.
+select
+      p.BusinessEntityID as ID,
+	  p.FirstName as ad,
+	  p.LastName as soyad
+from Person.Person as p 
+where p.MiddleName is null 
 
+UNION
 
+SELECT p.BusinessEntityID,
+       p.FirstName as ad,
+	   p.LastName as soyad
+FROM Person.Person as p 
+WHERE p.BusinessEntityID NOT IN (
+    SELECT p.BusinessEntityID
+    FROM Person.Person as p 
+    WHERE p.MiddleName is null 
+)
+ORDER BY p.BusinessEntityID ASC;
+-- **********************************************************************************************
+-- 18) Her iþ unvaný için en yüksek saatlik ücreti döndürmek için SQL'de bir sorgu yazýn.Baþlýklarý,maksimum
+--  ödeme oraný 40 dolardan fazla olan erkekler veya maksimum ödeme oraný 42 dolardan fazla olan
+-- kadýnlar tarafýndan sahip olunanlarla sýnýrlandýrýr.
+SELECT e.JobTitle, MAX(eph.Rate) AS MaxHourlyRate
+FROM HumanResources.Employee as e
+     inner join HumanResources.EmployeePayHistory as eph on e.BusinessEntityID=eph.BusinessEntityID
+WHERE e.Gender = 'M' AND eph.Rate > 40
+    OR e.Gender = 'F' AND eph.Rate > 42
+GROUP BY e.JobTitle;
+-- **********************************************************************************************
+-- 17)
