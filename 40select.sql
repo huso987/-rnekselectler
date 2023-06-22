@@ -307,4 +307,7 @@ WHERE e.Gender = 'M' AND eph.Rate > 40
     OR e.Gender = 'F' AND eph.Rate > 42
 GROUP BY e.JobTitle;
 -- **********************************************************************************************
--- 17)
+-- 17)CountryRegionName sütunu 'United States' e eþit olduðunda TerritoryName sütununa ve diðer tüm satýrlarý için
+-- CountryRegionName'e göre ayarlanan sonucu sýralamak için SQL'de  bir sorgu yazýn.BusinessEntityID,LastName,
+-- TerritoryName,CountryRegionName'i döndür.
+
